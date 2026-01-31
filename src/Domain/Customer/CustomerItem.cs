@@ -14,7 +14,7 @@ public sealed class CustomerItem : Entity
     public string Comments { get; set; } = string.Empty;
 
     public List<string> ProductBought { get; set; } = [];
-    public DateTime? DateTime { get; set; } = DateTime.UtcNow;
+    public DateTime? DateTime { get; set; }
     public bool IsCompleted { get; set; }
     public StatusMode StatusMode { get; set; }
 }

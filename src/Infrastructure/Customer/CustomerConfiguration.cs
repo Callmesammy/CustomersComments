@@ -14,7 +14,7 @@ internal sealed class CustomerConfiguration : IEntityTypeConfiguration<CustomerI
     {
         builder.HasKey(c => c.Id);
 
-        builder.Property(t => t.Duedate).HasConversion(d => d != null ? DateTime.SpecifyKind(d.Value, DateTimeKind.Utc) : d, v => v);
+        builder.Property(t => t.DateTime).HasConversion(d => d != null ? DateTime.SpecifyKind(d.Value, DateTimeKind.Utc) : d, v => v);
 
         builder.HasOne<User>().WithMany().HasForeignKey(t => t.UserId);
     }
