@@ -11,7 +11,7 @@ internal sealed class Create : IEndpoint
 {
     public sealed class Request
     {
-        public Guid UserId { get; set; }
+        public Guid UserId { get; set; }  
         public string Description { get; set; }
         public string Comments { get; set; }
         public DateTime? DueDate { get; set; }
@@ -40,11 +40,12 @@ internal sealed class Create : IEndpoint
 
             Result<Guid> result = await handler.Handle(command, cancellationToken);
 
-            return result.Match (Results.Ok, CustomResults.Problem);
+            return result.Match(Results.Ok, CustomResults.Problem);
         })
         .WithTags(Tags.Todos)
         .RequireAuthorization();
     }
+
 }
 
 

@@ -6,7 +6,7 @@ using Domain.Customer;
 
 namespace Application.Customer.Create;
 
-internal sealed class CreateCustomerCommand : ICommand<Guid>
+public sealed class CreateCustomerCommand : ICommand<Guid>
 {
     public Guid UserId { get; set; } = Guid.NewGuid();
     public string Name { get; set; }
