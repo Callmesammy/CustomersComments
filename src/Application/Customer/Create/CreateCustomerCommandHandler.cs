@@ -30,7 +30,6 @@ internal sealed class CreateCustomerHandler(IApplicationDbContext context, IUser
         {
             UserId = user.Id,
             Name = command.Name, 
-            Comments = command.Comments,
             Address = command.Address,
             IsCompleted = false,
             DateTime = dateTimeProvider.UtcNow,
@@ -40,7 +39,7 @@ internal sealed class CreateCustomerHandler(IApplicationDbContext context, IUser
         };
 
         customerItem.Raise(new CustomerCreatedDomainEvent(customerItem.Id));
-        context.CustomerItems.Add(customerItem);
+        context.Customers.Add(customerItem);
        await context.SaveChangesAsync(cancellationToken);
 
         return customerItem.Id;

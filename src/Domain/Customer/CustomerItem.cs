@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SharedKernel;
+﻿using SharedKernel;
 
 namespace Domain.Customer;
 
@@ -11,8 +8,6 @@ public sealed class CustomerItem : Entity
     public Guid UserId { get; set; } = Guid.NewGuid();
     public string Name { get; set; }
     public string Address { get; set; } = string.Empty;    
-    public string Comments { get; set; } = string.Empty;
-
     public List<string> ProductBought { get; set; } = [];
     public DateTime? DateTime { get; set; }
     public bool IsCompleted { get; set; }

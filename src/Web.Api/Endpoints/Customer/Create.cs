@@ -24,10 +24,10 @@ internal sealed class Create : IEndpoint
     public int StatusMode { get; set; }
 }
 
-{
+
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-    app.MapPost("cutomer", async (Request request,
+    app.MapPost("cutomers", async (Request request,
         ICommandHandler<CreateCustomerCommand, Guid> handler,
         CancellationToken cancellationToken) => {
 

@@ -11,7 +11,7 @@ namespace Infrastructure.Database;
 public sealed class ApplicationDbContext(
     DbContextOptions<ApplicationDbContext> options,
     IDomainEventsDispatcher domainEventsDispatcher)
-    : DbContext(options), IApplicationDbContext
+    : DbContext(options), IApplicationDbContext 
 {
     public DbSet<User> Users { get; set; }
     public DbSet<CustomerItem> Customers { get; set; }
