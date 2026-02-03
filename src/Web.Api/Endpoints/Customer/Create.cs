@@ -30,7 +30,6 @@ internal sealed class Create : IEndpoint
     app.MapPost("cutomers", async (Request request,
         ICommandHandler<CreateCustomerCommand, Guid> handler,
         CancellationToken cancellationToken) => {
-
             var customer = new CreateCustomerCommand
             {
                 UserId = request.UserId,
@@ -46,7 +45,7 @@ internal sealed class Create : IEndpoint
 
             return result.Match(Results.Ok, CustomResults.Problem);
         })
-        .WithTags(Tags.Customer)
+        .WithTags(Tags.Customers)
         .RequireAuthorization();
 
     }
