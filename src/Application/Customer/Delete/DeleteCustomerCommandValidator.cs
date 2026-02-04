@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 
-namespace Application.Todos.Delete;
+namespace Application.Customer.Delete;
 
 internal sealed class DeleteCustomerCommandValidator : AbstractValidator<DeleteCustomerCommand>
 {
     public DeleteCustomerCommandValidator()
     {
-        RuleFor(c => c.TodoItemId).NotEmpty();
+        RuleFor(c => c.CustomerItemId).NotEmpty();
     }
 }

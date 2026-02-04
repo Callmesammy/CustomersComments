@@ -5,24 +5,24 @@ using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
 
-namespace Web.Api.Endpoints.Todos;
+namespace Web.Api.Endpoints.Customer;
 
 internal sealed class GetById : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("todos/{id:guid}", async (
+        app.MapGet("customer/{id:guid}", async (
             Guid id,
-            IQueryHandler<GetTodoByIdQuery, TodoResponse> handler,
+            IQueryHandler<GetCustomerByIdQuery, CustomerResponse> handler,
             CancellationToken cancellationToken) =>
         {
-            var command = new GetTodoByIdQuery(id);
+            var command = new GetCustomerByIdQuery(id);
 
-            Result<TodoResponse> result = await handler.Handle(command, cancellationToken);
+            Result<CustomerResponse> result = await handler.Handle(command, cancellationToken);
 
             return result.Match(Results.Ok, CustomResults.Problem);
         })
-        .WithTags(Tags.Chilling)
+        .WithTags(Tags.Customers)
         .RequireAuthorization();
     }
 }

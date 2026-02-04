@@ -1,28 +1,29 @@
 ﻿using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
+using Domain.Customer;
 using Domain.Todos;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
-namespace Application.Todos.Delete;
+namespace Application.Customer.Delete;
 
 internal sealed class DeleteCustomerCommandHandler(IApplicationDbContext context, IUserContext userContext)
     : ICommandHandler<DeleteCustomerCommand>
 {
     public async Task<Result> Handle(DeleteCustomerCommand command, CancellationToken cancellationToken)
     {
-        TodoItem? todoItem = await context.TodoItems
-            .SingleOrDefaultAsync(t => t.Id == command.TodoItemId && t.UserId == userContext.UserId, cancellationToken);
+        CustomerItem? customerItem = await context.Customers
+            .SingleOrDefaultAsync(t => t.Id == command.CustomerItemId && t.UserId == userContext.UserId, cancellationToken);
 
-        if (todoItem is null)
+        if (customerItem is null)
         {
-            return Result.Failure(TodoItemErrors.NotFound(command.TodoItemId));
+            return Result.Failure(TodoItemErrors.NotFound(command.CustomerItemId));
         }
 
-        context.TodoItems.Remove(todoItem);
+        context.Customers.Remove(customerItem);
 
-        todoItem.Raise(new TodoItemDeletedDomainEvent(todoItem.Id));
+        customerItem.Raise(new TodoItemDeletedDomainEvent(customerItem.Id));
 
         await context.SaveChangesAsync(cancellationToken);
 
