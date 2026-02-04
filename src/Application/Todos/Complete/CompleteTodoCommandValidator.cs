@@ -2,7 +2,7 @@
 
 namespace Application.Todos.Complete;
 
-internal sealed class CompleteTodoCommandValidator : AbstractValidator<CompleteTodoCommand>
+internal sealed class CompleteTodoCommandValidator : AbstractValidator<CompletedCustomerCommand>
 {
     public CompleteTodoCommandValidator()
     {

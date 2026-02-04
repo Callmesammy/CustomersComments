@@ -11,9 +11,9 @@ internal sealed class CompleteTodoCommandHandler(
     IApplicationDbContext context,
     IDateTimeProvider dateTimeProvider,
     IUserContext userContext)
-    : ICommandHandler<CompleteTodoCommand>
+    : ICommandHandler<CompletedCustomerCommand>
 {
-    public async Task<Result> Handle(CompleteTodoCommand command, CancellationToken cancellationToken)
+    public async Task<Result> Handle(CompletedCustomerCommand command, CancellationToken cancellationToken)
     {
         TodoItem? todoItem = await context.TodoItems
             .SingleOrDefaultAsync(t => t.Id == command.TodoItemId && t.UserId == userContext.UserId, cancellationToken);

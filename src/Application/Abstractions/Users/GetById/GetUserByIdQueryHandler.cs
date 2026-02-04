@@ -5,15 +5,20 @@ using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
-namespace Application.Users.GetByEmail;
+namespace Application.Abstractions.Users.GetById;
 
-internal sealed class GetUserByEmailQueryHandler(IApplicationDbContext context, IUserContext userContext)
-    : IQueryHandler<GetUserByEmailQuery, UserResponse>
+internal sealed class GetUserByIdQueryHandler(IApplicationDbContext context, IUserContext userContext)
+    : IQueryHandler<GetUserByIdQuery, UserResponse>
 {
-    public async Task<Result<UserResponse>> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken)
+    public async Task<Result<UserResponse>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
     {
+        if (query.UserId != userContext.UserId)
+        {
+            return Result.Failure<UserResponse>(UserErrors.Unauthorized());
+        }
+
         UserResponse? user = await context.Users
-            .Where(u => u.Email == query.Email)
+            .Where(u => u.Id == query.UserId)
             .Select(u => new UserResponse
             {
                 Id = u.Id,
@@ -25,12 +30,7 @@ internal sealed class GetUserByEmailQueryHandler(IApplicationDbContext context, 
 
         if (user is null)
         {
-            return Result.Failure<UserResponse>(UserErrors.NotFoundByEmail);
-        }
-
-        if (user.Id != userContext.UserId)
-        {
-            return Result.Failure<UserResponse>(UserErrors.Unauthorized());
+            return Result.Failure<UserResponse>(UserErrors.NotFound(query.UserId));
         }
 
         return user;

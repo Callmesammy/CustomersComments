@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.Users.Register;
+namespace Application.Abstractions.Users.Register;
 
 internal sealed class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
 {

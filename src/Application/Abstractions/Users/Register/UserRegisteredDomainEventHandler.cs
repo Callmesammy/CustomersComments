@@ -1,7 +1,7 @@
 ﻿using Domain.Users;
 using SharedKernel;
 
-namespace Application.Users.Register;
+namespace Application.Abstractions.Users.Register;
 
 internal sealed class UserRegisteredDomainEventHandler : IDomainEventHandler<UserRegisteredDomainEvent>
 {

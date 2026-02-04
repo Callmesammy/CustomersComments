@@ -4,13 +4,13 @@ using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
 
-namespace Web.Api.Endpoints.Todos;
+namespace Web.Api.Endpoints.Customer;
 
 internal sealed class Complete : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("todos/{id:guid}/complete", async (
+        app.MapPut("customer/{id:guid}/complete", async (
             Guid id,
             ICommandHandler<CompletedCustomerCommand> handler,
             CancellationToken cancellationToken) =>
@@ -21,7 +21,7 @@ internal sealed class Complete : IEndpoint
 
             return result.Match(Results.NoContent, CustomResults.Problem);
         })
-        .WithTags(Tags.Chilling)
+        .WithTags(Tags.Customers)
         .RequireAuthorization();
     }
 }

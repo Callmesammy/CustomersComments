@@ -5,7 +5,7 @@ using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
-namespace Application.Users.Login;
+namespace Application.Abstractions.Users.Login;
 
 internal sealed class LoginUserCommandHandler(
     IApplicationDbContext context,

@@ -5,7 +5,7 @@ using Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
-namespace Application.Users.Register;
+namespace Application.Abstractions.Users.Register;
 
 internal sealed class RegisterUserCommandHandler(IApplicationDbContext context, IPasswordHasher passwordHasher)
     : ICommandHandler<RegisterUserCommand, Guid>
