@@ -1,21 +1,26 @@
 ﻿using Application.Abstractions.Messaging;
-using Application.Todos.Complete;
+using Application.Customer.Update;
 using SharedKernel;
 using Web.Api.Extensions;
 using Web.Api.Infrastructure;
 
 namespace Web.Api.Endpoints.Customer;
 
-internal sealed class Complete : IEndpoint
+internal sealed class UpdateId : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("customer/{id:guid}/complete", async (
+        app.MapPatch("customer/{id:guid}", async (
             Guid id,
-            ICommandHandler<CompletedCustomerCommand> handler,
+            UpdateCustomerRequest request,
+            ICommandHandler<UpdateCustomerCommand> handler,
             CancellationToken cancellationToken) =>
         {
-            var command = new CompletedCustomerCommand(id);
+            var command = new UpdateCustomerCommand(
+                id,
+                request.Name,
+                request.Address,
+                request.Comments);
 
             Result result = await handler.Handle(command, cancellationToken);
 
@@ -25,3 +30,8 @@ internal sealed class Complete : IEndpoint
         .RequireAuthorization();
     }
 }
+
+public sealed record UpdateCustomerRequest(
+    string Name,
+    string Address,
+    string Comments);
